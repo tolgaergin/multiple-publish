@@ -1,8 +1,11 @@
 {
   "name": "@lpm.dev/neo.multiple",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Multi-registry publish test — publishes to LPM and npm simultaneously",
   "main": "index.js",
+  "publishConfig": {
+    "@tolgaergin:registry": "https://npm.pkg.github.com"
+  },
   "exports": {
     ".": {
       "import": "./index.mjs",
