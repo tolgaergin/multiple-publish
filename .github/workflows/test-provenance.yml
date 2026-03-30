@@ -19,9 +19,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install LPM Rust CLI
+      - name: Checkout Rust CLI source (Phase 21 branch)
+        uses: actions/checkout@v4
+        with:
+          repository: lpm-dev/rust-client
+          ref: feature/preparing-for-final-version
+          path: rust-client
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            rust-client/target
+          key: rust-${{ runner.os }}-${{ hashFiles('rust-client/Cargo.lock') }}
+
+      - name: Build LPM Rust CLI
+        working-directory: rust-client
         run: |
-          npm install -g @lpm-registry/cli
+          cargo build --release -p lpm-cli
+          sudo cp target/release/lpm-rs /usr/local/bin/lpm
           lpm --version
 
       - name: Publish with provenance
@@ -38,4 +59,5 @@ jobs:
             REGISTRY_FLAG="--npm --github"
           fi
 
+          echo "Publishing with flags: $REGISTRY_FLAG --provenance --yes"
           lpm publish $REGISTRY_FLAG --provenance --yes
