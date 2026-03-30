@@ -2,7 +2,7 @@
   "publish": {
     "registries": ["lpm", "npm", "github"],
     "npm": {
-      "name": "publish-multiple-registry2",
+      "name": "publish-multiple-registry3",
       "access": "public"
     },
     "github": {

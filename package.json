@@ -1,6 +1,6 @@
 {
   "name": "@lpm.dev/neo.multiple",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Multi-registry publish test — publishes to LPM and npm simultaneously",
   "main": "index.js",
   "exports": {
