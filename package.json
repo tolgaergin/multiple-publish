@@ -1,0 +1,39 @@
+{
+  "name": "@lpm.dev/neo.multiple",
+  "version": "1.0.2",
+  "description": "Multi-registry publish test — publishes to LPM and npm simultaneously",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "types": "./index.d.ts"
+    }
+  },
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.mjs",
+    "index.d.ts",
+    "lib/"
+  ],
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "lpm",
+    "multi-registry",
+    "publish",
+    "test"
+  ],
+  "author": "neo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lpm-dev/lpm-test-packages"
+  },
+  "homepage": "https://lpm.dev/neo/multiple",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

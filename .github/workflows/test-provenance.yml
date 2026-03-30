@@ -1,0 +1,41 @@
+name: Test Provenance Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      registry:
+        description: 'Target registry (npm, github, both)'
+        required: true
+        default: 'npm'
+
+permissions:
+  id-token: write   # Required for Sigstore OIDC
+  contents: read
+  packages: write    # Required for GitHub Packages
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LPM Rust CLI
+        run: |
+          npm install -g @lpm-registry/cli
+          lpm --version
+
+      - name: Publish with provenance
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REGISTRY_FLAG=""
+          if [ "${{ inputs.registry }}" = "npm" ]; then
+            REGISTRY_FLAG="--npm"
+          elif [ "${{ inputs.registry }}" = "github" ]; then
+            REGISTRY_FLAG="--github"
+          elif [ "${{ inputs.registry }}" = "both" ]; then
+            REGISTRY_FLAG="--npm --github"
+          fi
+
+          lpm publish $REGISTRY_FLAG --provenance --yes

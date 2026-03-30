@@ -1,0 +1,13 @@
+{
+  "publish": {
+    "registries": ["lpm", "npm", "github"],
+    "npm": {
+      "name": "publish-multiple-registry2",
+      "access": "public"
+    },
+    "github": {
+      "name": "@tolgaergin/publish-multiple-registry",
+      "access": "public"
+    }
+  }
+}
